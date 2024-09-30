@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\development\\.NET\\openAi\\openAi\\openAi.csproj": {}
+    "D:\\development\\.NET\\gpt-test\\cgpt\\openAi.csproj": {}
   },
   "projects": {
-    "D:\\development\\.NET\\openAi\\openAi\\openAi.csproj": {
+    "D:\\development\\.NET\\gpt-test\\cgpt\\openAi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\development\\.NET\\openAi\\openAi\\openAi.csproj",
+        "projectUniqueName": "D:\\development\\.NET\\gpt-test\\cgpt\\openAi.csproj",
         "projectName": "openAi",
-        "projectPath": "D:\\development\\.NET\\openAi\\openAi\\openAi.csproj",
+        "projectPath": "D:\\development\\.NET\\gpt-test\\cgpt\\openAi.csproj",
         "packagesPath": "C:\\Users\\cothe\\.nuget\\packages\\",
-        "outputPath": "D:\\development\\.NET\\openAi\\openAi\\obj\\",
+        "outputPath": "D:\\development\\.NET\\gpt-test\\cgpt\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
