@@ -1,17 +1,42 @@
 
-namespace OpenAiService
-{
-    public class OpenAiSrervice
-    {
-        private readonly HttpClient _httpClient;
-        private readonly string _apikey;
+using Cgpt.Models;
+using Cgpt.Configurations;
+using OpenAI.Chat;
+using Microsoft.Extensions.Options;
 
-        public OpenAiSrervice(HttpClient httpClient, string apikey)
+namespace Cgpt.Services
+{
+    public class OpenAiService
+    {
+
+        public interface IOpenAiService
         {
-            _httpClient = httpClient;
-            _apikey = apikey;
+            Task<string> GetCompletionAsync(OpenAiModels openAiModels);
         }
 
+        private readonly OpenAiConfig _openAiConfig;
 
+        public OpenAiService(IOptionsMonitor<OpenAiConfig> openAiConfig)
+        {
+            _openAiConfig = openAiConfig.CurrentValue;
+        }
+
+        public async Task<string> GetCompletionAsync(OpenAiModels openAiModels)
+        {
+            ChatClient client = new(model: "gpt-4o", _openAiConfig.Key);
+
+            try
+            {
+                ChatCompletion result = await client.CompleteChatAsync(openAiModels.Prompt);
+
+                Console.WriteLine("Response: " + result.ToString());
+
+                return result.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

@@ -1,35 +1,26 @@
-var builder = WebApplication.CreateBuilder(args);
+using Cgpt.Services;
+using Cgpt.Configurations;
 
-// Add services to the container.
+
+var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+// Adding Swagger
 builder.Services.AddSwaggerGen();
-
-// Adding Environment variables
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-    .AddEnvironmentVariables();
-
-builder.Services.AddHttpClient<OpenAiService>(client =>
-{
-    client.BaseAddress = new Uri("https://api.openai.com/v1/");
-    client.DefaultRequestHeaders.Add("", $"Bearer {builder.Configuration["OpenAiApiKey"]}");
-});
-
+// Adding Controllers
+builder.Services.AddControllers();
+//Dependency Injection for OpenAiService
+builder.Services.Configure<OpenAiConfig>(builder.Configuration.GetSection("OpenAi"));
+// Adding OpenAI service
+builder.Services.AddScoped<OpenAiService>();
+// Build the app
 var app = builder.Build();
-
-
+// Enable middleware to serve the generated Swagger as a JSON endpoint.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger();  // Enable Swagger middleware to generate Swagger JSON file
+    app.UseSwaggerUI();  // Enable Swagger UI to visualize the Swagger documentation in a browser
 }
 
-
-//middleware that forces the application to use HTTPS
-app.UseHttpsRedirection();
-
-//middleware that enables routing
-app.UseAuthorization();
-
+app.MapControllers();
 app.Run();
