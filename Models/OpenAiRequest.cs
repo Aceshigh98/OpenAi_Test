@@ -16,10 +16,12 @@ namespace Cgpt.Models
         [Range(0, 10, ErrorMessage = "Temperature must be between 0 and 10")]
         public double Temperature { get; set; }
 
-        public OpenAiModel(string model, string prompt)
+        public OpenAiModels(string model, string prompt)
         {
             Model = model;
             Prompt = prompt;
+            MaxTokens = 100;
+            Temperature = 0.5;
         }
     }
 
@@ -27,5 +29,10 @@ namespace Cgpt.Models
     {
         [Required(ErrorMessage = "Completion is required")]
         public string Completion { get; set; }
+
+        public OpenAiResponse(string completion)
+        {
+            Completion = completion;
+        }
     }
 }
